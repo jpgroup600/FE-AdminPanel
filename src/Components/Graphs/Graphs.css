@@ -1,0 +1,27 @@
+/* src/components/Graphs.css */
+
+.graph-container {
+  
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping of elements */
+    justify-content: space-between; /* Space between graphs */
+    margin: 0 auto; /* Center the container */
+    max-width: 1400px; /* Max width of the container */
+    
+  }
+  
+  .graph {
+    flex: 1 1 calc(50% - 20px); /* Each graph takes up 50% width with some margin */
+    margin: 10px; /* Margin between graphs */
+    min-width: 300px; /* Minimum width for graphs */
+    max-height: 400px; /* Max height for the graph */
+    margin-top:10%;
+  }
+  
+  @media (max-width: 768px) {
+    .graph {
+      flex: 1 1 100%; /* Stacks the graphs in a column on mobile */
+      margin: 10px 0; /* Margin for top and bottom */
+    }
+  }
+  

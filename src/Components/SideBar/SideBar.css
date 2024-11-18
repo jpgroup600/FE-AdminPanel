@@ -1,0 +1,11 @@
+/* HomeScreen.css */
+.nav-hover:hover {
+    background-color: #343a40; 
+  }
+
+@media (max-width: 768px) {
+    .offcanvas {
+      width: 60% !important; 
+    }
+  }
+  

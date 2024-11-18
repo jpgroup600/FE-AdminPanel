@@ -1,0 +1,197 @@
+.page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+}
+
+.upload-button {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.upload-button:hover {
+  background-color: #0056b3;
+}
+
+.centered-container {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.image-names-scroll {
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.submit-button {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.full-width-container {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px 0;
+}
+
+.left-container,
+.right-container {
+  width: 45%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+}
+
+.section-heading {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.add-title-button,
+.add-tab-button {
+  font-size: 16px;
+  padding: 8px 20px;
+  margin-left: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-title-button:hover,
+.add-tab-button:hover {
+  background-color: #218838;
+}
+
+.edit-title-button,
+.edit-tab-button,
+.delete-title-button,
+.delete-tab-button {
+  font-size: 14px;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.edit-title-button,
+.edit-tab-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.edit-title-button:hover,
+.edit-tab-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-title-button,
+.delete-tab-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+.delete-title-button:hover,
+.delete-tab-button:hover {
+  background-color: #c82333;
+}
+
+.title-list,
+.tab-list {
+  margin-top: 20px;
+}
+
+.title-item,
+.tab-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.title-actions,
+.tab-actions {
+  display: flex;
+  gap: 10px;
+}
+
+input[type="text"],
+input[type="file"],
+.form-control {
+  height: 40px;
+  padding: 8px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+input[type="file"] {
+  padding-left: 10px;
+}
+.field-container {
+  display: flex;
+  align-items: center; /* Keeps buttons aligned */
+  justify-content: space-between; /* Ensures buttons stay in place */
+  gap: 10px; /* Adds spacing between elements */
+}
+
+.field-text {
+  flex: 1; /* Allows text to take available space */
+  word-wrap: break-word; /* Wraps long text */
+  word-break: break-word; /* Breaks words if they are too long */
+  white-space: pre-wrap; /* Preserves whitespace and ensures wrapping */
+  overflow-wrap: break-word; /* Ensures compatibility across browsers */
+}
+
+.title-actions {
+  display: flex;
+  gap: 5px; /* Adds spacing between buttons */
+}
+.tab-container {
+  display: flex;
+  align-items: center; /* Keeps buttons aligned vertically */
+  justify-content: space-between; /* Ensures text and buttons are spaced */
+  gap: 10px; /* Adds spacing between text and buttons */
+}
+
+.tab-text {
+  flex: 1; /* Allows the text to take up the remaining space */
+  word-wrap: break-word; /* Wraps long text */
+  word-break: break-word; /* Breaks words if necessary */
+  white-space: pre-wrap; /* Preserves spacing and ensures wrapping */
+  overflow-wrap: break-word; /* Ensures compatibility */
+}
+
+.tab-actions {
+  display: flex;
+  gap: 5px; /* Adds spacing between the buttons */
+}
