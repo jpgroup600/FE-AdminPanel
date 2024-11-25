@@ -1,13 +1,16 @@
 
-const changeDate = (timestamp) => {
+const changeDate = (time) => {
     // Original timestamp
-    const timestamp = "2024-11-01T11:52:25.162Z";
+    const timestamp = time;
 
     // Convert to Date object
     const date = new Date(timestamp);
 
     // Adjust to Korean timezone (UTC+9)
     const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
         hour: 'numeric',
         minute: 'numeric',
         hour12: true,
