@@ -3,6 +3,7 @@ import { Table, Button } from "react-bootstrap";
 import "./UserScreen.css";
 import axios from "axios";
 import { BackEndAPI } from "../../BaseURI/BackEndUrI";
+import changeDate from "../../hooks/changedate";
 
 const UserScreen = () => {
   const [userSearchTerm, setUserSearchTerm] = useState("");
@@ -131,10 +132,12 @@ const UserScreen = () => {
           <Table striped bordered hover className="table">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Number</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>전화번호</th>
                 <th>사업자명</th>
+                <th>가입 날짜</th>
+                <th>가입 경로</th>
                 {/* <th>Phone Number</th> */}
                 {/* <th>Active</th>
                 <th>Pending</th>
@@ -150,6 +153,8 @@ const UserScreen = () => {
                   {/* <td>{merchant.shopName}</td> */}
                   <td>{merchant.PhoneNumber?  merchant.PhoneNumber : "No number available"}</td>
                   <td>{merchant.businessName?  merchant.businessName : "No number available"}</td>
+                  <td>{merchant.joinedDate?  changeDate(merchant.joinedDate) : "No number available"}</td>
+                  <td>{merchant.signupPath?  changeDate(merchant.signupPath) : "No number available"}</td>
                   {/* <td>{merchant.active ? "Yes" : "No"}</td>
                   <td>{merchant.pending ? "Yes" : "No"}</td>
                   <td>{merchant.unlisted ? "Yes" : "No"}</td>
