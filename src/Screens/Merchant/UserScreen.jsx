@@ -134,6 +134,7 @@ const UserScreen = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Number</th>
+                <th>사업자명</th>
                 {/* <th>Phone Number</th> */}
                 {/* <th>Active</th>
                 <th>Pending</th>
@@ -148,6 +149,7 @@ const UserScreen = () => {
                   <td>{merchant.email?  merchant.email : "No email available"}</td>
                   {/* <td>{merchant.shopName}</td> */}
                   <td>{merchant.PhoneNumber?  merchant.PhoneNumber : "No number available"}</td>
+                  <td>{merchant.businessName?  merchant.businessName : "No number available"}</td>
                   {/* <td>{merchant.active ? "Yes" : "No"}</td>
                   <td>{merchant.pending ? "Yes" : "No"}</td>
                   <td>{merchant.unlisted ? "Yes" : "No"}</td>
