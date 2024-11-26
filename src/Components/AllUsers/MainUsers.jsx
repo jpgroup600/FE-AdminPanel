@@ -46,9 +46,9 @@ const MainUsers = () => {
       : [...users, ...merchants];
 
   // Filter combined data based on search term
-  const filteredData = combinedData.filter((item) => {
-    const nameToCheck = item.name.toLowerCase();
-    return nameToCheck.includes(searchTerm.toLowerCase());
+  const filteredData = combinedData?.filter((item) => {
+    const nameToCheck = item.name?.toLowerCase();
+    return nameToCheck?.includes(searchTerm?.toLowerCase());
   });
 
   const indexOfLastItem = currentPage * usersPerPage; // Last item index
@@ -116,7 +116,7 @@ const MainUsers = () => {
                 <td>{indexOfFirstItem + index + 1}</td>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
-                <td>{new Date(item.joinedDate).toLocaleString()}</td>
+                <td>{new Date(item.joinedDate)?.toLocaleString()}</td>
               </tr>
             ))
           ) : (

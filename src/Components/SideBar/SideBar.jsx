@@ -46,6 +46,9 @@ function SideBar() {
             <Nav.Link as={Link} to="/products" className="text-white nav-hover">
               Products
             </Nav.Link>
+            <Nav.Link as={Link} to="/campaigns" className="text-white nav-hover">
+              Add Products
+            </Nav.Link>
             <Nav.Link
               as={Link}
               to="/Categories"

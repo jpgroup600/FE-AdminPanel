@@ -14,7 +14,7 @@ const Products = () => {
   const [alertType, setAlertType] = useState("success");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
-  
+
   const getGeneralData = async () => {
     try {
       // Fetching product data from the API
@@ -28,7 +28,7 @@ const Products = () => {
   };
 
   useEffect(() => {
-    
+
     getGeneralData();
   }, []);
 
@@ -40,9 +40,9 @@ const Products = () => {
   const handleClose = () => setShowModal(false);
 
   const handleApprove = async (id) => {
-    console.log("AprroveId",id)
+    console.log("AprroveId", id)
     try {
-      await axios.post(`${BackEndAPI}/admin/approve`, {productId:id}); 
+      await axios.post(`${BackEndAPI}/admin/approve`, { productId: id });
       setAlertMessage("Product approved successfully");
       setShowAlert(true);
       setAlertType("success");
@@ -55,23 +55,37 @@ const Products = () => {
     }
   };
 
- 
 
-const handleDelete = async (id) => {
-  console.log("DeletedId", id);
-  try {
-    await axios.delete(`${BackEndAPI}/admin/delete`, { data: { productId: id } });
-    setAlertMessage("Product deleted successfully");
-    setShowAlert(true);
-    setAlertType("success");
-    getGeneralData();
-  } catch (error) {
-    console.error("Error deleting product: ", error);
-    setAlertMessage("Failed to delete product");
-    setAlertType("danger");
-    setShowAlert(true);
-  }
-};
+
+  const handleDelete = async (id) => {
+    console.log("DeletedId", id);
+    try {
+      await axios.delete(`${BackEndAPI}/admin/delete`, { data: { productId: id } });
+      setAlertMessage("Product deleted successfully");
+      setShowAlert(true);
+      setAlertType("success");
+      getGeneralData();
+    } catch (error) {
+      console.error("Error deleting product: ", error);
+      setAlertMessage("Failed to delete product");
+      setAlertType("danger");
+      setShowAlert(true);
+    }
+  };
+  const handleSetCampaign = async (id) => {
+    try {
+      await axios.post(`${BackEndAPI}/admin/setcampaign`, { data: { productId: id } });
+      setAlertMessage("Product set to campaign successfully");
+      setShowAlert(true);
+      setAlertType("success");
+      getGeneralData();
+    } catch (error) {
+      console.error("Error deleting product: ", error);
+      setAlertMessage("Failed to set campaign product");
+      setAlertType("danger");
+      setShowAlert(true);
+    }
+  };
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -82,12 +96,14 @@ const handleDelete = async (id) => {
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.campaignName
-      ? product.campaignName.toLowerCase().includes(searchQuery.toLowerCase())
+      ? product.campaignName?.toLowerCase().includes(searchQuery?.toLowerCase())
       : true; // Check if productName exists
     const matchesFilter =
       filterStatus === "All" || product.status === filterStatus;
     return matchesSearch && matchesFilter;
   });
+
+  console.log("Products", products);
 
   useEffect(() => {
     if (showAlert) {
@@ -153,22 +169,31 @@ const handleDelete = async (id) => {
               <td>{new Date(product.joinedDate).toLocaleDateString()}</td>
               <td>{new Date(new Date(product.joinedDate).getTime() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}</td>
               <td className="action-buttons">
-                {product.status === "pending" && (
-                  <Button
-                    variant="success"
-                    onClick={() => handleApprove(product._id)}
-                    className="action-button"
-                  >
-                    Approve
-                  </Button>
+                {product.status === "Pending" && (
+                <Button
+                  variant="success"
+                  onClick={() => handleApprove(product._id)}
+                  className="action-button"
+                >
+                  Approve
+                </Button>
                 )}
                 <Button
                   variant="danger"
-                  onClick={() => handleDelete(product._id,product.numberOfPeople)}
+                  onClick={() => handleDelete(product._id, product.numberOfPeople)}
                   className="action-button"
                 >
                   Delete
                 </Button>
+
+                {product.setToCompaign ==false && (
+                  <Button
+                    variant="warning"
+                    onClick={() => handleSetCampaign(product._id)}
+                    className="action-button"
+                  >
+                    set Campaign
+                  </Button>)}
               </td>
             </tr>
           ))}

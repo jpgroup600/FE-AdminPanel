@@ -1,0 +1,1745 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  padding: 0 35px;
+  background-color: 2px solid #F5F3F3;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+nav .logo span {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 23.17px;
+  text-align: left;
+  color: #363940;
+}
+nav .search > input {
+  width: 330px;
+  padding: 3px 20px;
+  border: 1px solid #6D6D6D;
+  border-radius: 5px;
+  min-height: 30px;
+}
+nav .search > input:focus {
+  border-color: transparent;
+}
+nav .nav-links a {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 23.17px;
+  text-align: left;
+  color: #6D6D6D;
+}
+nav .Login {
+  margin-top: 5px;
+  padding: 8px;
+  background-color: #2C9512;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 23.17px;
+  text-align: left;
+  border-radius: 5px;
+  color: #ffffff !important;
+  height: 30px;
+  max-width: 70px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.slider {
+  margin: 0 auto;
+}
+.slider .px-12 {
+  padding: 0 7rem !important;
+}
+.slider .slick-next {
+  right: 80px !important;
+  z-index: 9999;
+}
+.slider .slick-next:before {
+  font-size: 35px !important;
+  background-color: transparent !important;
+  color: #ffffff !important;
+  background-color: black;
+}
+.slider .slick-prev {
+  left: 80px !important;
+  z-index: 9999;
+}
+.slider .slick-prev:before {
+  font-size: 35px !important;
+  background-color: transparent !important;
+  color: #ffffff !important;
+  background-color: black;
+}
+.slider .slick-dots {
+  bottom: 16px !important;
+}
+.slider .slick-dots button:before {
+  content: "";
+  height: 8px !important;
+  width: 8px !important;
+  background-color: #DAE1E7 !important;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+.slider .slick-dots > .slick-active button:before {
+  background-color: #2C9512 !important;
+  width: 24px !important;
+  height: 8px !important;
+  position: absolute;
+  color: transparent !important;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+.slider .slick-dots button:not(.slick-active):before {
+  transition: background-color 0.3s ease;
+}
+
+.card-container {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  width: 100%;
+}
+.card-container .small-card {
+  margin: 0 auto;
+  border: 2px solid #D9D9D9;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 84px;
+  height: 84px;
+}
+.card-container h3 {
+  padding-top: 10px;
+  font-family: "Noto Sans KR";
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 17.38px;
+  text-align: center;
+  color: #000000;
+}
+
+.category-section .category-heading h3 {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 31.86px;
+  text-align: left;
+  color: #2C9512;
+}
+.category-section .category-btn a {
+  width: 39px;
+  height: 20px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  width: 75px;
+  height: 30px;
+  padding: 0px 8px;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.28px;
+  text-align: center;
+  color: #000000;
+}
+
+.category-card-section h3 {
+  font-family: "Noto Sans KR" Sans KR;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20.27px;
+  text-align: left;
+  color: #000000;
+}
+.category-card-section h4 {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: left;
+  color: #000000;
+}
+.category-card-section h5 {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  text-align: left;
+  color: #6D6D6D;
+}
+
+.slider {
+  height: 425px !important;
+}
+.slider .slick-prev,
+.slider .slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(0%);
+  width: 40px;
+  height: 40px;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  transition: 0.3s ease;
+}
+.slider .slick-prev {
+  left: 25px !important;
+  background-image: url("../assets/images/Right.svg");
+}
+.slider .slick-prev::before {
+  font-family: Arial, Helvetica, sans-serif !important;
+  content: " " !important;
+}
+.slider .slick-next {
+  right: 30px !important;
+  background-image: url("../assets/images/Left.svg");
+}
+.slider .slick-next::before {
+  content: " " !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.event-banner {
+  background-color: #D9D9D9;
+  height: 168px;
+  max-width: 1224px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+.event-banner h3 {
+  font-family: "Noto Sans KR";
+  font-size: 29px;
+  font-weight: 700;
+  line-height: 41.99px;
+  text-align: left;
+  white-space: nowrap;
+  color: #000000;
+}
+
+.slider-2 {
+  padding: 20px 140px;
+  min-height: 420px;
+  background-color: #343434;
+}
+.slider-2 .slick-initialized {
+  max-width: 1225px;
+  margin: 0 auto;
+}
+.slider-2 .slider-2-heading {
+  padding-top: 32px;
+  max-width: 1225px;
+  margin: 0 auto;
+}
+.slider-2 .slider-2-heading h2 {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 31.86px;
+  text-align: left;
+  color: #ffffff;
+}
+.slider-2 .slider-2-time {
+  margin: 0 auto;
+  max-width: 1225px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.slider-2 .slider-2-time h3 {
+  font-family: "Noto Sans KR";
+  font-size: 45px;
+  font-weight: 500;
+  line-height: 65.16px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  color: #ffffff;
+}
+.slider-2 .slider-2-time h4 {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: left;
+  color: #ffffff;
+}
+.slider-2 .slider-2-heading-bottom h3 {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: left;
+  color: #ffffff;
+}
+.slider-2 .slider-2-heading-bottom h4 {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  text-align: left;
+  color: #ffffff;
+}
+.slider-2 .slick-prev,
+.slider-2 .slick-next {
+  position: absolute;
+  top: 30%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  transition: 0.3s ease;
+}
+.slider-2 .slick-prev {
+  left: -50px !important;
+  background-image: url("../assets/images/Right.svg");
+}
+.slider-2 .slick-prev::before {
+  font-family: Arial, Helvetica, sans-serif !important;
+  content: " " !important;
+}
+.slider-2 .slick-prev:hover {
+  background: url("../assets/images/Right.svg");
+  background-repeat: no-repeat;
+}
+.slider-2 .slick-next {
+  right: -50px !important;
+  background-image: url("../assets/images/Left.svg");
+}
+.slider-2 .slick-next::before {
+  content: " " !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+.slider-2 .slick-next:hover {
+  background: url("../assets/images/Left.svg") !important;
+  background-repeat: no-repeat !important;
+}
+
+footer {
+  background-color: #9E9E9E;
+  padding: 20px;
+}
+footer .footer-container {
+  width: 100%;
+  max-width: 1118px;
+  margin: 0 auto;
+}
+footer .footer-container .footer-logo {
+  padding-top: 80px;
+}
+footer .footer-container .footer-logo h1 {
+  font-family: "Noto Sans KR";
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 37.65px;
+  text-align: left;
+  color: #ffffff;
+}
+footer .footer-container .footer-sec {
+  margin-left: 8px;
+}
+footer .footer-container .footer-sec h3 {
+  margin-left: -60px;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: left;
+  color: #ffffff;
+  white-space: nowrap;
+}
+footer .footer-container .footer-sec h3:before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 20px;
+  height: 25p;
+  background-color: red;
+}
+footer .footer-container .footer-para-2 p {
+  margin-top: -30px;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  text-align: left;
+  color: #ffffff;
+  white-space: nowrap;
+}
+footer .footer-container .third {
+  white-space: nowrap;
+  margin-left: -180px;
+  margin-top: 20px;
+}
+footer .copyright p {
+  margin-top: -20px;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  text-align: center;
+  margin-left: -365px;
+  color: #ffffff;
+}
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.login-form .login-log {
+  margin: 0 auto;
+}
+.login-form .login-log h3 {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 23.17px;
+  text-align: left;
+}
+.login-form .form-outline {
+  margin-top: 70px !important;
+  padding: 0px 0px 20px 0px;
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  width: 369px;
+  height: 164px;
+  margin: 0 auto;
+}
+.login-form .form-outline .review {
+  width: 185px;
+  height: 43px;
+  border-radius: 0 20px 0 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+}
+.login-form .form-outline .Merchant {
+  width: 185px;
+  height: 43px;
+  border-radius: 0 20px 0 0px;
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+}
+.login-form .form-outline .Merchant h2 {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+  color: #9e9e9e;
+}
+.login-form .form-outline form {
+  padding-top: 15px;
+  margin: 0 auto;
+}
+.login-form .form-outline form .form-group {
+  display: flex;
+  justify-content: center;
+}
+.login-form .form-outline form .form-group > input {
+  width: 349px;
+  height: 45px;
+  border: 1px solid #d9d9d9;
+  opacity: 1;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+  color: #9e9e9e;
+  padding-left: 10px;
+}
+.login-form .form-outline form .form-group > input > ::-moz-placeholder {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+}
+.login-form .form-outline form .form-group > input > ::placeholder {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+}
+.login-form .form-outline form .form-group > input:focus {
+  outline: none !important;
+}
+.login-form .form-outline form .login-btn {
+  margin-top: 20px;
+  width: 369px;
+  height: 45px;
+  background-color: #2C9512;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 16.94px;
+  text-align: left;
+  color: #ffffff;
+}
+.login-form .form-outline .login-with {
+  margin-top: 15px;
+  width: 369px;
+  height: 45px;
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+}
+.login-form .form-outline .login-with p {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+  margin-left: 83px;
+  color: #9e9e9e;
+}
+.login-form .form-outline .login-with .fb {
+  margin-left: 145px;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+  color: #9e9e9e;
+}
+.login-form .form-outline .review-bottom {
+  padding-top: 20px;
+}
+.login-form .form-outline .review-bottom .review-section-one {
+  width: 177px;
+  height: 77px;
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+}
+.login-form .form-outline .review-bottom .review-section-one p {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+  color: #9e9e9e;
+}
+.login-form .how-to-use {
+  margin-top: 80px;
+  height: 80px;
+  border-top: 1px solid #9e9e9e;
+  width: 1220px !important;
+  margin: 150px auto 80px -450px;
+}
+.login-form .how-to-use ul li {
+  list-style: disc !important;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+  color: #9e9e9e;
+  display: flex;
+  align-items: center;
+}
+
+.capian-secation {
+  max-width: 1224px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 60px 0px 400px 0px;
+}
+.capian-secation .capion-heading {
+  padding-top: 20px;
+  margin-bottom: 35px;
+}
+.capian-secation .capion-heading h1 {
+  font-family: "Inter";
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 33.89px;
+  text-align: left;
+  color: #000000;
+}
+
+.basic-campian-section {
+  padding: 50px;
+  max-width: 1220px;
+  margin: 0 auto;
+}
+.basic-campian-section .basic-setting {
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.basic-campian-section .basic-setting h2 {
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28.96px;
+  text-align: left;
+  color: #2C9512;
+}
+.basic-campian-section .basic-setting .bring-prev {
+  width: 236px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #2C9512;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: center;
+  color: #ffffff;
+}
+.basic-campian-section .basic-setting .reset {
+  width: 130px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #2C9512;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: center;
+  color: #ffffff;
+}
+.basic-campian-section .basic-setting-main-page {
+  margin-top: 40px !important;
+  max-width: 1220px;
+  border-radius: 10px;
+  margin: 0 auto;
+  background-color: #f5f3f3;
+  height: 2262px;
+  padding: 60px 50px;
+}
+.basic-campian-section .basic-setting-main-page .basic-setting-one {
+  padding-top: 10px;
+}
+.basic-campian-section .basic-setting-main-page .basic-setting-one .one {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #2c9512;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.basic-campian-section .basic-setting-main-page .basic-setting-one .one > span {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 23.17px;
+  text-align: center;
+  color: #2C9512;
+}
+.basic-campian-section .basic-setting-main-page .basic-info-capian-type p {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: left;
+  color: #000000;
+}
+.basic-campian-section .basic-setting-main-page .basic-setting-headin h1 {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 31.86px;
+  text-align: left;
+  color: #000000;
+}
+.basic-campian-section .basic-setting-main-page .last-basic {
+  width: 36px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+.basic-campian-section .basic-setting-main-page .last-basic p {
+  margin: 0 auto;
+  font-family: "Noto Sans KR";
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 14.48px;
+  text-align: center;
+  color: red;
+}
+.basic-campian-section .basic-setting-main-page .form-data {
+  padding-top: 30px;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group {
+  display: flex;
+  flex-direction: column;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group label {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: left;
+  color: #000000;
+  margin-bottom: 12px;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group input {
+  width: 1095px;
+  height: 50px;
+  border-radius: 5px;
+  padding: 0 15px;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  text-align: left;
+  margin-bottom: 14px;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group input:focus {
+  outline: none;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group textarea {
+  width: 1095px;
+  height: 238px;
+  border-radius: 5px;
+  padding: 15px;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  text-align: left;
+  margin-bottom: 14px;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group textarea:focus {
+  outline: none;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group .zero-input {
+  width: 514px;
+  height: 50px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group .zero-input p {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 23.17px;
+  text-align: left;
+  color: #9e9e9e;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group .zero-input strong {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 23.17px;
+  text-align: left;
+  color: #000000;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group .member-input {
+  width: 514px;
+  height: 50px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group .member-input p {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 23.17px;
+  text-align: left;
+  color: #000000;
+}
+.basic-campian-section .basic-setting-main-page .form-data .form-input-group span {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  text-align: left;
+  color: #9e9e9e;
+}
+.basic-campian-section .basic-setting-main-page .form-datas {
+  display: flex;
+  flex-direction: column;
+}
+.basic-campian-section .basic-setting-main-page .visti .active {
+  border: 3px solid #2C9512;
+  border-radius: 5px;
+  background-color: rgba(44, 149, 18, 0.3019607843);
+  margin-top: 30px;
+  width: 536px;
+  height: 238px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.basic-campian-section .basic-setting-main-page .visti h4 {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 31.86px;
+  text-align: center;
+  color: #2C9512;
+}
+.basic-campian-section .basic-setting-main-page .visti p {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: center;
+  color: #000000;
+}
+.basic-campian-section .basic-setting-main-page .ship {
+  margin-top: 30px;
+  width: 536px;
+  height: 238px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.basic-campian-section .basic-setting-main-page .ship h4 {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 31.86px;
+  text-align: center;
+  color: rgba(44, 149, 18, 0.5019607843);
+}
+.basic-campian-section .basic-setting-main-page .ship p {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: center;
+  color: #9e9e9e;
+}
+.basic-campian-section .basic-setting-main-page .drop {
+  margin-top: 80px;
+}
+.basic-campian-section .basic-setting-main-page .drop .Main-image p {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: left;
+  color: #000000;
+}
+.basic-campian-section .basic-setting-main-page .drop .drag-drop {
+  padding: 0 50px;
+  margin-top: 30px;
+  width: 1100px;
+  height: 237px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.basic-campian-section .basic-setting-main-page .drop .drag-drop .drag-drop-heading {
+  padding-left: 20px;
+}
+.basic-campian-section .basic-setting-main-page .drop .drag-drop .drag-drop-heading h2 {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 31.86px;
+  text-align: left;
+}
+.basic-campian-section .basic-setting-main-page .drop .drag-drop .drag-drop-heading p {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: left;
+  color: #9e9e9e;
+}
+.basic-campian-section .basic-setting-main-page .drop .drag-drop .upload {
+  border: 2px dotted #b2b2b2;
+  width: 234px;
+  height: 203px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.basic-campian-section .basic-setting-main-page .Adress_to_visit .address_to_visit_para {
+  padding-top: 30px;
+}
+.basic-campian-section .basic-setting-main-page .Adress_to_visit .address_to_visit_para p {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: left;
+  color: #000000;
+}
+.basic-campian-section .basic-setting-main-page .Adress_to_visit .address-one {
+  width: 1100px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.basic-campian-section .basic-setting-main-page .Adress_to_visit .address-one .주소설정 {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  text-align: left;
+  color: #9e9e9e;
+}
+.basic-campian-section .basic-setting-main-page .Adress_to_visit .address-one .주소검색 {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  text-align: left;
+  color: #000000;
+}
+.basic-campian-section .basic-setting-main-page .last-container {
+  width: 1100px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+.basic-campian-section .basic-setting-main-page .last-container p {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  text-align: left;
+  color: #9e9e9e;
+}
+.basic-campian-section .basic-setting-main-page .chanel-social {
+  padding-top: 30px;
+}
+.basic-campian-section .basic-setting-main-page .chanel-social p {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.17px;
+  text-align: left;
+  color: #000000;
+}
+.basic-campian-section .basic-setting-main-page .chanel-social .youtube {
+  width: 199px;
+  height: 50px;
+  background-color: rgba(44, 149, 18, 0.3019607843);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26.06px;
+  text-align: left;
+  color: #2c9512;
+}
+.basic-campian-section .basic-setting-main-page .chanel-social .insta {
+  width: 199px;
+  height: 50px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26.06px;
+  text-align: left;
+  color: #b2b2b2;
+}
+.basic-campian-section .bottom-btn-one {
+  width: 596px;
+  height: 80px;
+  border: 1px solid #b2b2b2;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.basic-campian-section .bottom-btn-one p {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 31.86px;
+  text-align: center;
+  color: #b2b2b2;
+}
+.basic-campian-section .bottom-btn-two {
+  width: 596px;
+  height: 80px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2C9512;
+}
+.basic-campian-section p {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 31.86px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.user-section {
+  padding: 50px;
+  width: 1220px;
+  margin: 0 auto;
+}
+.user-section .user-profile-info {
+  padding-top: 80px;
+}
+.user-section .user_info h4 {
+  padding-top: 20px;
+  font-family: "Inter";
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 33.89px;
+  text-align: left;
+  color: #000000;
+}
+.user-section .user_info h6 {
+  font-family: "Inter";
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 33.89px;
+  text-align: left;
+  color: #3c3c3c;
+}
+.user-section .user_info ul {
+  padding-top: 15px;
+}
+.user-section .user_info ul li {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+  color: #000000;
+}
+.user-section .right-user-profile {
+  width: 953px;
+  border-radius: 0px 0px 20px 0px;
+  height: 2801px;
+  background-color: #f2f2f2;
+}
+.user-section .right-user-profile .right-user-profile-heading {
+  padding: 45px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.user-section .right-user-profile .right-user-profile-heading h2 {
+  font-family: "Inter";
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 33.89px;
+  text-align: left;
+  color: #000000;
+}
+.user-section .right-user-profile .right-user-profile-heading h2 span {
+  font-family: "Inter";
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 33.89px;
+  text-align: left;
+  color: #495057;
+  margin-left: 25px;
+}
+.user-section .right-user-profile .registered-campagin {
+  padding: 70px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.user-section .right-user-profile .registered-campagin h2 {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 31.86px;
+  text-align: left;
+  color: #2c9512;
+}
+.user-section .right-user-profile .registered-campagin .category-btn a {
+  background-color: white;
+  width: 39px;
+  height: 20px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  width: 75px;
+  height: 30px;
+  padding: 0px 8px;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.28px;
+  text-align: center;
+  color: #000000;
+}
+.user-section .right-user-profile .registered-card {
+  width: 399px;
+  height: 163px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.user-section .right-user-profile .registered-card .project-heading {
+  padding: 30px 45px;
+}
+.user-section .right-user-profile .registered-card .project-heading h3 {
+  font-family: "Inter";
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24.2px;
+  text-align: left;
+  color: #000000;
+  margin-bottom: 14px;
+}
+.user-section .right-user-profile .registered-card .project-heading p {
+  font-family: "Inter";
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 18.15px;
+  text-align: left;
+  color: rgba(60, 60, 60, 0.5215686275);
+  margin-bottom: 15px;
+}
+.user-section .right-user-profile .registered-card .project-heading .location {
+  font-family: "Inter";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18.15px;
+  text-align: left;
+  color: rgba(134, 134, 134, 0.5215686275);
+}
+.user-section .right-user-profile .bookmarked-campagin {
+  padding-top: 100px;
+}
+.user-section .right-user-profile .bookmarked-campagin .bookmarked-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.user-section .right-user-profile .bookmarked-campagin .bookmarked-heading h2 {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 31.86px;
+  text-align: left;
+  color: #2c9512;
+}
+.user-section .right-user-profile .bookmarked-campagin .bookmarked-heading .category-btn a {
+  width: 39px;
+  height: 20px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  width: 75px;
+  height: 30px;
+  padding: 0px 8px;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.28px;
+  text-align: center;
+  color: #000000;
+}
+.user-section .right-user-profile .bookmarked-campagin .bookmarked-card {
+  margin-top: 50px;
+  width: 263px;
+  height: 163px;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+.user-section .right-user-profile .bookmarked-campagin .bookmarked-card .bookmarked h4 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.36px;
+  text-align: left;
+  color: #000000;
+  margin-bottom: 5px;
+}
+.user-section .right-user-profile .bookmarked-campagin .bookmarked-card .bookmarked p {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  color: rgba(134, 134, 134, 0.5215686275);
+}
+.user-section .right-user-profile .reviews {
+  margin-top: 90px;
+}
+.user-section .right-user-profile .reviews .reviews-section {
+  display: flex;
+  justify-content: space-between;
+}
+.user-section .right-user-profile .reviews .reviews-section h2 {
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 31.86px;
+  text-align: left;
+  color: #2c9512;
+}
+.user-section .right-user-profile .reviews .reviews-section .category-btn a {
+  width: 39px;
+  height: 20px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  width: 75px;
+  height: 30px;
+  padding: 0px 8px;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.28px;
+  text-align: center;
+  color: #000000;
+}
+.user-section .right-user-profile .reviews .reviews-cards {
+  margin-top: 20px;
+  width: 410px;
+  height: 269px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 30px 25px;
+}
+.user-section .right-user-profile .reviews .reviews-cards .review-headering h3 {
+  font-family: "Inter";
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24.2px;
+  text-align: left;
+  color: #000000;
+  margin-bottom: 18px;
+}
+.user-section .right-user-profile .reviews .reviews-cards .review-headering h3 span {
+  font-family: "Inter";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18.15px;
+  text-align: left;
+  color: rgba(134, 134, 134, 0.5215686275);
+  margin-left: 15px;
+}
+.user-section .right-user-profile .reviews .reviews-cards .review-headering p {
+  font-family: "Inter";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18.15px;
+  text-align: left;
+  position: relative;
+  color: rgba(60, 60, 60, 0.5215686275);
+}
+.user-section .right-user-profile .reviews .reviews-cards .review-headering p::before {
+  content: attr(data-text);
+  bottom: -100%;
+  position: absolute;
+  width: 346.51px;
+  height: 2px;
+  background-color: #9e9e9e;
+}
+.user-section .right-user-profile .reviews .reviews-cards .review-card-center {
+  margin-top: 35px;
+}
+.user-section .right-user-profile .reviews .reviews-cards .review-card-center h5 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.36px;
+  text-align: left;
+  color: #000000;
+}
+.user-section .right-user-profile .reviews .reviews-cards .review-zero-card {
+  margin-top: 40px;
+}
+.user-section .right-user-profile .reviews .reviews-cards .review-zero-card p {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.36px;
+  text-align: left;
+  color: #000000;
+}
+
+.brand-section {
+  width: 1220px;
+  margin: 0 auto;
+}
+.brand-section .brand-left {
+  width: 797px;
+  margin: 0 auto;
+}
+.brand-section .brand-left .brand-title {
+  padding-top: 50px;
+}
+.brand-section .brand-left .brand-title h1 {
+  font-family: "Inter";
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 33.89px;
+  text-align: left;
+  color: #000000;
+  margin-bottom: 15px;
+}
+.brand-section .brand-left .brand-title .blog-left {
+  padding-top: 20px;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20.27px;
+  text-align: left;
+}
+.brand-section .brand-left .brand-title p {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 20.27px;
+  text-align: left;
+  color: #6d6d6d;
+  margin-bottom: 25px;
+}
+.brand-section .brand-left .brand-title h5 {
+  padding-top: 25px;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 23.17px;
+  text-align: left;
+  color: #000000;
+  position: relative;
+  padding-bottom: 10px;
+}
+.brand-section .brand-left .brand-title h5::before {
+  content: attr(data-text);
+  position: absolute;
+  width: 797px;
+  height: 2px;
+  background-color: #f5f3f3;
+  bottom: 0px;
+}
+.brand-section .brand-left .brand-left-button {
+  padding-top: 50px;
+}
+.brand-section .brand-left .brand-left-button button {
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  width: 797px;
+  height: 50px;
+  background-color: #f5f3f3;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  color: #6d6d6d;
+}
+.brand-section .brand-right {
+  margin: 60px auto 0 205px;
+  width: 383px;
+  height: 751px !important;
+  border: 2px solid #f5f3f3;
+  border-radius: 13px;
+  padding: 25px 20px 0px 20px;
+}
+.brand-section .brand-right table {
+  height: 659px;
+  width: 301px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+.brand-section .brand-right table tr th {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16.94px;
+  text-align: left;
+  color: #000000;
+}
+.brand-section .brand-right table tr td {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16.94px;
+  text-align: left;
+  color: #6d6d6d;
+}
+.brand-section .brand-right table tr td p {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.36px;
+  text-align: left;
+  color: #000000 !important;
+}
+.brand-section .brand-right table tr td button {
+  margin-top: 20px;
+  width: 300px;
+  height: 50px;
+  border-radius: 2px;
+  background-color: #2C9512;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  color: #ffffff;
+}
+.brand-section .brand-right table tr td .event-btn {
+  width: 300px;
+  height: 100px;
+  background-color: #f5f3f3;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  color: #000000;
+}
+.brand-section .chines-text {
+  width: 767px;
+  padding: 20px;
+}
+.brand-section .chines-text .chines-heading h2 {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
+  color: #000000;
+  white-space: nowrap;
+}
+.brand-section .chines-text .chines-heading p {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
+  color: #000000;
+}
+.brand-section .chines-text .chines-headings h2 {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
+  color: #000000;
+  white-space: nowrap;
+}
+.brand-section .chines-text .chines-headings p {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
+  color: #000000;
+}
+.brand-section .chines-text .chines-headings .bottom-border {
+  margin-top: 20px;
+  width: 622px;
+  border: 2px solid #f5f3f3;
+}
+
+@media (max-width: 1920px) {
+  .slick-prev {
+    left: 80%;
+  }
+}
+@media (max-width: 510px) {
+  .slider-2-time {
+    flex-direction: column;
+  }
+}
+@media (max-width: 1920px) {
+  .xl-card {
+    max-width: 1280px !important;
+  }
+  .slider .slick-next {
+    right: 150px !important;
+    z-index: 9999;
+  }
+  .slider .slick-next:before {
+    font-size: 35px !important;
+    background-color: transparent !important;
+    color: #ffffff !important;
+    background-color: black;
+  }
+  .slider .slick-prev {
+    left: 150px !important;
+    z-index: 9999;
+  }
+  .slider .slick-prev:before {
+    font-size: 35px !important;
+    background-color: transparent !important;
+    color: #ffffff !important;
+    background-color: black;
+  }
+  .slider .slick-dots {
+    bottom: 16px !important;
+  }
+  .slider .slick-dots button:before {
+    content: "";
+    height: 8px !important;
+    width: 8px !important;
+    background-color: #DAE1E7 !important;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+  }
+  .slider .slick-dots > .slick-active button:before {
+    background-color: #2C9512 !important;
+    width: 24px !important;
+    height: 8px !important;
+    position: absolute;
+    color: transparent !important;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+  }
+  .slider .slick-dots button:not(.slick-active):before {
+    transition: background-color 0.3s ease;
+  }
+}
+@media (max-width: 1023px) {
+  .copyright p {
+    margin-left: 0 !important;
+  }
+  .footer-logo {
+    padding-top: 40px !important;
+  }
+  .footer-para-2 p {
+    margin-left: 0 !important;
+  }
+}
+.singup-container {
+  padding: 60px;
+}
+.singup-container .singup-heading {
+  display: flex;
+  justify-content: center;
+  border-bottom: 0.5px solid #9e9e9e;
+  padding-bottom: 15px;
+}
+.singup-container .singup-heading h1 {
+  font-family: "Inter";
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 29.05px;
+  text-align: left;
+}
+.singup-container .singup-form-container {
+  max-width: 395px;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+.singup-container .singup-form-container form label {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16.94px;
+  text-align: left;
+  color: #000000;
+  margin-bottom: 14px;
+  position: relative;
+}
+.singup-container .singup-form-container form label span {
+  position: absolute;
+  top: -8px;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  text-align: left;
+  color: #ff0000;
+}
+.singup-container .singup-form-container form input {
+  width: 377px;
+  height: 38px;
+  background-color: rgba(217, 217, 217, 0);
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  padding-left: 15px;
+  outline: none;
+  box-shadow: none;
+  margin-bottom: 28px;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  text-align: left;
+  color: #000000;
+}
+.singup-container .singup-form-container form input ::-moz-placeholder {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  text-align: left;
+  color: #000000;
+}
+.singup-container .singup-form-container form input ::placeholder {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  text-align: left;
+  color: #000000;
+}
+.singup-container .singup-form-container form .message {
+  margin-top: -12px;
+  font-family: "Inter";
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 13.31px;
+  text-align: left;
+  color: #ff0000;
+  margin-bottom: 28px;
+}
+.singup-container .singup-form-container form select {
+  width: 377px;
+  height: 38px;
+  background-color: rgba(217, 217, 217, 0);
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  padding-left: 15px;
+  outline: none;
+  box-shadow: none;
+  margin-bottom: 38px;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  text-align: left;
+  color: #000000;
+}
+.singup-container .singup-form-container form select ::-moz-placeholder {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  text-align: left;
+  color: #000000;
+}
+.singup-container .singup-form-container form select ::placeholder {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  text-align: left;
+  color: #000000;
+}
+.singup-container .singup-form-container form .checkbox-container #input-check {
+  width: 13px !important;
+  height: 13px;
+  margin-top: 25px;
+}
+.singup-container .singup-form-container form .checkbox-container .first-checkbox {
+  font-family: "Inter";
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 13.31px;
+  text-align: left;
+  color: #000000;
+}
+.singup-container .singup-form-container form .checkbox-container .last-check {
+  font-family: "Inter";
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 13.31px;
+  text-align: left;
+  color: #000000;
+}
+.singup-container .singup-form-container form .sigup-button {
+  margin-top: 15px;
+  width: 394px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #2c9512;
+  border: 1px solid #2c9512;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.94px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.how-to-use {
+  height: 80px;
+  border-top: 1px solid #9e9e9e;
+  width: 1220px !important;
+  margin: 0px auto 220px -450px;
+}
+.how-to-use ul li {
+  list-style: disc !important;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+  color: #9e9e9e;
+  display: flex;
+  align-items: center;
+}/*# sourceMappingURL=Main.css.map */

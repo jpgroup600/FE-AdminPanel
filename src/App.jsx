@@ -6,6 +6,9 @@ import Home from '../src/Screens/Home/HomeScreen'; // Assuming you have a Home c
 import Products from './Screens/Products/Products';
 import Categories from './Screens/Categories/Categories';
 import Login from './Screens/Login/Login';
+import Campaigns from './Screens/campaigns/Campaigns';
+import './index.css';
+
 function App() {
  
   return (
@@ -39,6 +42,16 @@ function App() {
             </>
           }
         />
+        <Route
+          path="/campaigns"
+          element={
+            <>
+              <SideBar />
+              <Campaigns/>
+            </>
+          }
+        />
+       
          <Route
           path="/categories"
           element={

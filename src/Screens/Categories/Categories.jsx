@@ -4,6 +4,7 @@ import SideBar from "../../Components/SideBar/SideBar";
 import "./Categories.css";
 import axios from "axios";
 import { BackEndAPI } from "../../BaseURI/BackEndUrI";
+import axiosInstance from "../../../helper/axiosInstance";
 const Categories = () => {
   // State for image upload
   const [imageNames, setImageNames] = useState([]);
@@ -67,9 +68,9 @@ const Categories = () => {
     });
 
     // Send files via Axios
-    axios
+    axiosInstance
       .post(
-        "https://admin-backend-jacob-627c227daad2.herokuapp.com/images/upload",
+        "/images/upload",
         formData,
         {
           headers: {
@@ -81,9 +82,9 @@ const Categories = () => {
         // Assuming the server responds with an array of URLs
         setUrls(response.data.uploadedImages); // Set uploaded image URLs in state
 
-        axios
+        axiosInstance
           .post(
-            "https://admin-backend-jacob-627c227daad2.herokuapp.com/images/save",
+            "/images/save",
             { links: response.data.uploadedImages },
             {}
           )

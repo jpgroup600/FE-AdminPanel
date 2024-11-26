@@ -37,20 +37,20 @@ const UserScreen = () => {
   }, [currentPageUsers, currentPageMerchants]); // Added currentPage to the dependency array to refetch data on page change
 
   // Filter Users
-  const filteredUsers = users.filter(
+  const filteredUsers = users?.filter(
     (user) =>
-      user.name.toLowerCase().includes(userSearchTerm.toLowerCase()) ||
-      user.phoneNumber.includes(userSearchTerm) ||
-      user.email.toLowerCase().includes(userSearchTerm) ||
-      user.merchant.toLowerCase().includes(userSearchTerm)
+      user.name?.toLowerCase()?.includes(userSearchTerm?.toLowerCase()) ||
+      user.phoneNumber?.includes(userSearchTerm) ||
+      user.email?.toLowerCase()?.includes(userSearchTerm) ||
+      user.merchant?.toLowerCase()?.includes(userSearchTerm)
   );
 
   // Filter Merchants
-  const filteredMerchants = merchants.filter(
+  const filteredMerchants = merchants?.filter(
     (merchant) =>
-      merchant.name.toLowerCase().includes(merchantSearchTerm.toLowerCase()) ||
-      merchant.shopName.toLowerCase().includes(merchantSearchTerm.toLowerCase()) ||
-      merchant.email.toLowerCase().includes(merchantSearchTerm) ||
+      merchant.name?.toLowerCase().includes(merchantSearchTerm?.toLowerCase()) ||
+      merchant.shopName?.toLowerCase().includes(merchantSearchTerm?.toLowerCase()) ||
+      merchant.email?.toLowerCase().includes(merchantSearchTerm) ||
       merchant.phoneNumber.includes(merchantSearchTerm)
   );
 
