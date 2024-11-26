@@ -13,6 +13,8 @@ const UserScreen = () => {
   const [currentPageUsers, setCurrentPageUsers] = useState(1);
   const [currentPageMerchants, setCurrentPageMerchants] = useState(1);
   const itemsPerPage = 5; // Adjust this value for pagination
+  const [UtotalPage, setUtotalPage] = useState("")
+  const [MtotalPage, setMtotalPage] = useState("")
 
   useEffect(() => {
     const getGeneralData = async () => {
@@ -26,6 +28,8 @@ const UserScreen = () => {
         // Set the fetched data into state
         console.log("Users Response:", generalResponse.data);
         console.log("Merchants Response:", userJoinedResponse.data);
+        setUtotalPage(generalResponse.data.totalPages)
+        setMtotalPage(userJoinedResponse.data.totalPages)
         setUsers(generalResponse.data.users); // Set users from API response
         setMerchants(userJoinedResponse.data.merchants); // Set merchants from API response
       } catch (error) {
@@ -115,7 +119,7 @@ const UserScreen = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginatedUsers.map((user, index) => (
+                {users.map((user, index) => (
                   <tr key={index}>
                     <td>{user.name ? user.name : "No Text available"}</td>
                     <td>{user.phoneNumber ? user.phoneNumber : "No Number available"}</td>
@@ -136,7 +140,7 @@ const UserScreen = () => {
             >
               Previous
             </Button>
-            {Array.from({ length: totalPagesUsers }, (_, i) => (
+            {Array.from({ length: UtotalPage }, (_, i) => (
               <Button
                 key={i}
                 onClick={() => setCurrentPageUsers(i + 1)}
@@ -171,7 +175,7 @@ const UserScreen = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginatedMerchants.map((merchant, index) => (
+                {merchants.map((merchant, index) => (
                   <tr key={index}>
                     <td>{merchant.name ? merchant.name : "No name available"}</td>
                     <td>{merchant.email ? merchant.email : "No email available"}</td>
@@ -192,7 +196,7 @@ const UserScreen = () => {
             >
               Previous
             </Button>
-            {Array.from({ length: totalPagesMerchants }, (_, i) => (
+            {Array.from({ length: MtotalPage }, (_, i) => (
               <Button
                 key={i}
                 onClick={() => setCurrentPageMerchants(i + 1)}
