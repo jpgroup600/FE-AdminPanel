@@ -15,6 +15,8 @@ const UserScreen = () => {
   const itemsPerPage = 5; // Adjust this value for pagination
   const [UtotalPage, setUtotalPage] = useState("")
   const [MtotalPage, setMtotalPage] = useState("")
+  const [clickMessageSend, setClickMessageSend] = useState(null)
+  const [message, setMessage] = useState("")
 
   useEffect(() => {
     const getGeneralData = async () => {
@@ -74,6 +76,21 @@ const UserScreen = () => {
     currentPageMerchants * itemsPerPage
   );
 
+  const handleMessageSend = async () => {
+    if(confirm("메세지를 전송하시겠습니까?")) {
+    const response = await axios.post(`${BackEndAPI}/admin/SendMessage`, {
+      email: clickMessageSend,
+      message: message
+    })
+
+    if (response.status === 200) {
+      alert("메세지 전송 완료")
+      setClickMessageSend(null)
+      setMessage("")
+    }
+  }
+  }
+
   const [selectedTab, setSelectedTab] = useState("users");
 
   return (
@@ -121,7 +138,9 @@ const UserScreen = () => {
               <tbody>
                 {users.map((user, index) => (
                   <tr key={index}>
-                    <td>{user.name ? user.name : "No Text available"}</td>
+                    <td><div style={{cursor: "pointer", color: "white" , backgroundColor: "blue", padding: "5px", borderRadius: "5px"}}
+                    onClick={() => setClickMessageSend(user.email)}
+                    >메세지 전송</div>{user.name ? user.name : "No Text available"}</td>
                     <td>{user.phoneNumber ? user.phoneNumber : "No Number available"}</td>
                     <td>{user.email ? user.email : "No Number available"}</td>
                     <td>{user.birthDate ? user.birthDate : "No Number available"}</td>
@@ -177,7 +196,11 @@ const UserScreen = () => {
               <tbody>
                 {merchants.map((merchant, index) => (
                   <tr key={index}>
-                    <td>{merchant.name ? merchant.name : "No name available"}</td>
+                    <td>
+                    <div style={{cursor: "pointer", color: "white" , backgroundColor: "blue", padding: "5px", borderRadius: "5px"}}
+                    onClick={() => setClickMessageSend(merchant.email)}
+                    >메세지 전송</div>
+                      {merchant.name ? merchant.name : "No name available"}</td>
                     <td>{merchant.email ? merchant.email : "No email available"}</td>
                     <td>{merchant.PhoneNumber ? merchant.PhoneNumber : "No number available"}</td>
                     <td>{merchant.businessName ? merchant.businessName : "No number available"}</td>
@@ -215,6 +238,15 @@ const UserScreen = () => {
           </div>
         </div>
       )}
+      <div>{clickMessageSend ? (
+        <div style={{display: "flex", flexDirection: "column", gap: "10px"}}>
+          <h3>{`${clickMessageSend} 에게 메세지 전송`}</h3>
+          <input type="text" placeholder="메세지 입력" onChange={(e) => setMessage(e.target.value)} />
+          <button style={{cursor: "pointer", color: "white" , backgroundColor: "blue", padding: "5px", borderRadius: "5px"}}
+          onClick={() => handleMessageSend()}
+          >전송</button>
+        </div>
+      ) : null}</div>
     </div>
   );
 };

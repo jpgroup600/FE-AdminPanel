@@ -58,6 +58,26 @@
     background-color: #f8d7da;
     color: #721c24;
 }
+
+.form-select option {
+    background-color: white;
+    color: black;
+  }
+  
+  .form-select option[value="approved"]:hover {
+    background-color: #198754 !important;
+    color: white;
+  }
+  
+  .form-select option[value="pending"]:hover {
+    background-color: #ffc107 !important;
+  }
+  
+  .form-select option[value="rejected"]:hover {
+    background-color: #dc3545 !important;
+    color: white;
+  }
+
 @media (max-width: 576px) {
     .products-heading {
         margin-top: 10%;

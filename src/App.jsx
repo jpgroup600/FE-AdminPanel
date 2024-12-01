@@ -7,6 +7,7 @@ import Products from './Screens/Products/Products';
 import Categories from './Screens/Categories/Categories';
 import Login from './Screens/Login/Login';
 import Campaigns from './Screens/campaigns/Campaigns';
+import ViewProduct from './Screens/Products/ViewProduct';
 import './index.css';
 
 function App() {
@@ -57,6 +58,16 @@ function App() {
           element={
             <>
               <Categories />
+              
+            </>
+          }
+        />
+
+<Route
+          path="/view-product/:id"
+          element={
+            <>
+              <ViewProduct />
               
             </>
           }
