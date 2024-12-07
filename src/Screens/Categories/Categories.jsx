@@ -5,6 +5,10 @@ import "./Categories.css";
 import axios from "axios";
 import { BackEndAPI } from "../../BaseURI/BackEndUrI";
 import axiosInstance from "../../../helper/axiosInstance";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import DOMPurify from 'dompurify';
+
 const Categories = () => {
   // State for image upload
   const [imageNames, setImageNames] = useState([]);
@@ -22,6 +26,21 @@ const Categories = () => {
   const [urls, setUrls] = useState([]); // To store uploaded image URLs
   const [filex, setfilex] = useState(); // To store uploaded image URLs
   const [banners, setbanners] = useState([]); // To store uploaded image URLs
+  const [addTab, setAddTab] = useState("");
+
+
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'color': [] }, { 'background': [] }],  // dropdown with colors
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      ['link', 'image'],
+      ['clean']
+    ]
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -31,7 +50,7 @@ const Categories = () => {
         : Array.from(res.data.data[0].stringsArray || []);
 
       setTabList(arrayData);
-      const res2 = await axios.get(`${BackEndAPI}/heading/fields`);
+      const res2 = await axios.get(`${BackEndAPI}/heading/fields/`);
 
       const head = [];
       head.push(
@@ -42,6 +61,7 @@ const Categories = () => {
         res2.data?.field5
       );
       const bannersx = await axios.get(`${BackEndAPI}/adminroutes/allBanners`);
+      console.log("res2", res2?.data);
       console.log(bannersx.data.images);
 
       setbanners(bannersx.data.images); // Set the 'images' array to the state
@@ -174,7 +194,7 @@ const Categories = () => {
 
   // Functions for tab management
   const handleAddTab = async () => {
-    if (tabName.trim() === "") {
+    if (tabName.trim() === "" && addTab.trim() === "") {
       alert("Tab name cannot be empty!");
       return;
     }
@@ -185,6 +205,14 @@ const Categories = () => {
     } else {
       data = tabName;
     }
+
+    if (addTab.length > 0) {
+      data = tabList + "," + addTab;
+    } else {
+      data = addTab;
+    }
+
+    console.log(data);
     const res = await axios.post(`${BackEndAPI}/tabs/array`, { strings: data });
     if (res.status == 200) {
       alert("Tab added successfully");
@@ -298,23 +326,46 @@ const Categories = () => {
         <div className="full-width-container">
           {/* Left container for Add Tabs */}
           <div className="left-container">
-            <h2 className="section-heading">Add Tabs</h2>
+            <h2 className="section-heading">카테고리 설정</h2>
+
             <InputGroup className="mb-3">
               <FormControl
                 as="textarea"
-                placeholder="Enter tab name"
+                placeholder="카테고리 이름 입력"
+                value={addTab}
+                onChange={(e) => setAddTab(e.target.value)}
+                rows={8} // Set default height with rows
+                style={{ resize: "vertical", overflowY: "auto", height: 65 }} // Allow resizing and scrolling
+                aria-multiline="true"
+              />
+              
+              <Button
+                style={{ height: 65 }} // Allow resizing and scrolling
+                onClick={handleAddTab}
+                className="add-tab-button"
+              >
+                추가
+              </Button>
+            </InputGroup>
+
+            
+            <InputGroup className="mb-3">
+              <FormControl
+                as="textarea"
+                placeholder="카테고리 수정"
                 value={tabName}
                 onChange={(e) => setTabName(e.target.value)}
                 rows={8} // Set default height with rows
                 style={{ resize: "vertical", overflowY: "auto", height: 65 }} // Allow resizing and scrolling
                 aria-multiline="true"
               />
+              
               <Button
                 style={{ height: 65 }} // Allow resizing and scrolling
                 onClick={handleAddTab}
                 className="add-tab-button"
               >
-                {isEditingTab ? "Update" : "Add"}
+                수정
               </Button>
             </InputGroup>
 
@@ -345,9 +396,9 @@ const Categories = () => {
 
           {/* Right container for Add Title */}
           <div className="right-container">
-            <h2 className="section-heading">Add Title</h2>
+            <h2 className="section-heading">안내 문구 설정</h2>
             <InputGroup className="mb-3">
-              <FormControl
+              {/* <FormControl
                 as="textarea"
                 placeholder="Enter title"
                 value={title}
@@ -355,9 +406,14 @@ const Categories = () => {
                 rows={10} // Set default height with rows
                 style={{ resize: "vertical", overflowY: "auto", height: 65 }}
                 aria-multiline="true"
+              /> */}
+
+              <ReactQuill modules={modules} value={title} onChange={(e) => setTitle(e)}
+                style={{ resize: "vertical", overflowY: "auto", height: 300 }}
               />
+
               <Button
-                style={{ height: 65 }}
+                style={{ height: 30, marginTop: 10 , width: "100%"  , display: "flex", justifyContent: "center", alignItems: "center"}}
                 onClick={handleAddTitle}
                 className="add-title-button"
               >
@@ -369,10 +425,10 @@ const Categories = () => {
               {titleList.map((item, index) => (
                 <div key={index} className="title-item">
                   <div className="field-container">
-                    <span className="field-text">
-                      {"Field"} {index + 1} {": "}
-                      {item}
-                    </span>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item) }}
+                      className="rich-text-content"
+                    />
                     <div className="title-actions">
                       <Button
                         onClick={() => handleEditTitle(index)}

@@ -159,9 +159,18 @@ input[type="file"] {
 }
 .field-container {
   display: flex;
-  align-items: center; /* Keeps buttons aligned */
-  justify-content: space-between; /* Ensures buttons stay in place */
-  gap: 10px; /* Adds spacing between elements */
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.rich-text-content {
+  border: 1px solid #dcdcdc;
+    background: white;
+    padding: 20px;
+    width: 100%;
 }
 
 .field-text {
