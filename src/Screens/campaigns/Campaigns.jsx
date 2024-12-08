@@ -310,7 +310,7 @@ const Campaigns = () => {
 
       if (response.ok) {
         alert("캠페인이 정상적으로 등록되었습니다 관리자가 확인 진행중입니다");
-        navigate("/");
+        // navigate("/");
       } else {
         alert("캠페인 등록에 실패하였습니다 다시 시도해주세요");
       }
