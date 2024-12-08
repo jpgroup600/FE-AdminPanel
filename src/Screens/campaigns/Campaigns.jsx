@@ -273,6 +273,7 @@ const Campaigns = () => {
     try {
       const derivedData = {
         service: userData.service,
+        businessName: selectedMerchant?.businessName,
         email: selectedMerchant?.email,
         campaignName: userData.campaignName,
         isVisitOrShip: activeVisit ? "Visit" : "Ship",

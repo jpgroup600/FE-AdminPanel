@@ -410,7 +410,7 @@ const Products = () => {
                 </Button>
               </td>
               <td>{statusKr[product.status]}</td>
-              <td>{new Date(product.joinedDate).toLocaleDateString()}</td>
+              <td>{new Date(product.createdAt).toLocaleDateString()}</td>
               <td>{new Date(new Date(product.joinedDate).getTime() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}</td>
               <td className="action-buttons">
 
