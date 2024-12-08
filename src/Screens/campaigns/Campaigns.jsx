@@ -1,55 +1,138 @@
 import React, { useEffect, useRef, useContext } from "react";
-import Plus from "../../assets/plus.svg";
+import Plus from "../../../src/assets/plus.svg";
 import { useState } from "react";
 import { basicSettings } from "../../Constants/ConstBasic";
 import DaumPostcode from "react-daum-postcode";
 import axios from "axios";
 import './campaigns.css'
 import { BackEndAPI } from "../../BaseURI/BackEndUrI";
+import ImageUploader from "../../Components/ImageUploader";
+import { useNavigate } from "react-router-dom";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import './Main.scss'
+import apiUrl from "../../hooks/apiUrl";
+import Select from 'react-select';
+
+
 
 
 const Campaigns = () => {
   const [uploadedImagesNew, setUploadedImagesNEw] = useState([]);
   const [fill, setFill] = useState([]);
   const [tabs, settabs] = useState([]);
+  const [thumbnailFiles, setThumbnailFiles] = useState([]);
+  const [mainFiles, setMainFiles] = useState([]);
+  const thumbnailInputRef = useRef(null);
+  const mainInputRef = useRef(null);
 
-  // console.log(token, "token");
-  useEffect(() => {
-    const fetchHeads = async () => {
-      try {
-        const response = await axios.get(
-          "https://webjacob-c0f6c8e947aa.herokuapp.com/final/getheadings"
-        );
-        if (!response.status == 200) {
-          throw new Error("Failed to fetch banners");
-        }
-
-        // console.log(response.data.headings[0]);
-
-        setFill(response.data.headings[0]);
-      } catch (error) {
-        console.error("Error fetching banners:", error);
-      }
-      try {
-        const response = await axios.get(
-          "https://webjacob-c0f6c8e947aa.herokuapp.com/final/getTabs"
-        );
-        if (!response.status == 200) {
-          throw new Error("Failed to fetch Tabs");
-        }
-
-        // console.log(response.data.tabs[0].stringsArray);
-        settabs(response.data.tabs[0].stringsArray);
-        // setFill(response.data.headings[0]);
-      } catch {
-        console.error("Error fetching Tabs:", error);
-      }
-    };
-
-    fetchHeads();
-  }, []);
   const [files, setFiles] = useState([]);
   const fileInputRef = useRef(null);
+  const [thumbnailPath, setThumbnailPath] = useState([]);
+  const [mainImagePaths, setMainImagePaths] = useState([]);
+  const [allMerchants, setAllMerchants] = useState({});
+  const [selectedMerchant, setSelectedMerchant] = useState(null);
+
+  const MainMaxFiles = 5;
+  const ThumbnailMaxFiles = 3;
+  // console.log(token, "token");
+
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'color': [] }, { 'background': [] }],  // dropdown with colors
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      ['link', 'image'],
+      ['clean']
+    ]
+  };
+
+
+
+  const handleMainFileChange = async (event, setFilesState, fileState, setImagepathState, maxFiles) => {
+    const newFiles = Array.from(event.target.files);
+    console.log("mainFiles", fileState);
+    if (fileState.length + newFiles.length <= maxFiles) {
+      setFilesState([...fileState, ...newFiles]);
+
+      try {
+        const uploadedFiles = await uploadImages(newFiles);
+        console.log("uploadedFiles", uploadedFiles);
+
+        if (uploadedFiles) {
+          const newPaths = uploadedFiles.files.map(file => apiUrl + "/" + file.path)
+          setImagepathState(prev => [...prev, ...newPaths]);
+          console.log("newPaths", newPaths)
+
+        }
+      }
+
+      catch (error) {
+        console.error("Upload failed:", error);
+      }
+
+    }
+
+    else {
+      alert(`최대 이미지 ${maxFiles} 까지만 업로드 가능합니다`);
+    }
+
+  };
+
+  const fetchAllMerchants = async () => {
+    try {
+      const response = await axios.get(`${BackEndAPI}/adminroutes/get-all-merchants`);
+      if (response.status !== 200) {
+        throw new Error("Failed to fetch merchants");
+      }
+      console.log("response", response.data);
+      setAllMerchants(response.data);
+    } catch (error) {
+      console.error("Error fetching merchants:", error);
+    }
+  }
+
+  const fetchHeads = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/final/getheadings`);
+      if (response.status !== 200) {
+        throw new Error("Failed to fetch banners");
+      }
+      
+      // Set the state once with all the data
+      const headingsData = response.data.headings[0];
+      console.log("Setting initial data:", headingsData);
+      setFill(headingsData);
+       // Get tabs data
+      const tabsResponse = await axios.get(`${apiUrl}/final/getTabs`);
+      if (tabsResponse.status !== 200) {
+        throw new Error("Failed to fetch Tabs");
+      }
+      settabs(tabsResponse.data.tabs[0].stringsArray);
+     } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    
+
+    fetchHeads();
+    fetchAllMerchants();
+    console.log("Component mounted - fetching data");
+  }, []);
+
+  useEffect (() => {
+    console.log("Fill state changed:", {
+      time: new Date().toISOString(),
+      data: fill,
+      dataKeys: fill ? Object.keys(fill) : []
+    });
+  }, [fill])
+
 
   const uploadImages = async (fileArray) => {
     const formData = new FormData();
@@ -60,7 +143,7 @@ const Campaigns = () => {
 
     try {
       const response = await axios.post(
-        "https://webjacob-c0f6c8e947aa.herokuapp.com/images",
+        `${apiUrl}/images`,
         formData,
         {
           headers: {
@@ -102,8 +185,8 @@ const Campaigns = () => {
     }
   };
 
-  const handleImageClick = () => {
-    fileInputRef.current.click();
+  const handleImageClick = (ref) => {
+    ref.current.click();
   };
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -178,62 +261,57 @@ const Campaigns = () => {
     });
   };
 
-  useEffect(() => {
-    // console.log("UserId", localStorage.getItem("userID"));
-  });
 
   const handleSubmit = async () => {
-    if (!userData.campaignName || files.length === 0) {
+    if (!userData.campaignName || mainImagePaths.length === 0 || thumbnailPath.length === 0) {
       alert(
-        "Please fill in all required fields and upload at least one image."
+        "내용 혹은 사진이 입력되지 않았습니다 해당 항목을 다 입력해주세요"
       );
       return;
     }
 
     try {
       const derivedData = {
-        userId: "",
-        email:"",
+        service: userData.service,
+        email: selectedMerchant?.email,
         campaignName: userData.campaignName,
         isVisitOrShip: activeVisit ? "Visit" : "Ship",
-        location: `Sido: ${userData.address?.sido} | Sigungu: ${userData.address?.sigungu} | Address: ${userData.address?.address}`,
+        location: userData.address,
         checkDay: activeWeek
           .map((week) => week.charAt(0).toUpperCase() + week.slice(1))
           .join(", "),
         availableTime: `${userData.startTime} - ${userData.endTime}`,
         numberOfPeople: userData.member,
         image:
-          `https://webjacob-c0f6c8e947aa.herokuapp.com/${img[0]?.path}` || " ",
-        textArea1: userData.Info,
-        textArea2: userData.howtoregister,
-        textArea3: userData.keywords,
-        textArea4: userData.aditionalinfo,
-        textArea5: "Additional details",
+          thumbnailPath || " ",
+        textArea1: fill.field1,
+        textArea2: fill.field2,
+        textArea3: fill.field3,
+        textArea4: fill.field4,
+        textArea5: fill.field5,
         channel: activeChanel.join(", "),
-        image1:
-          `https://webjacob-c0f6c8e947aa.herokuapp.com/${img[1]?.path}` || " ",
-        image2:
-          `https://webjacob-c0f6c8e947aa.herokuapp.com/${img[2]?.path}` || " ",
-        image3:
-          `https://webjacob-c0f6c8e947aa.herokuapp.com/${img[3]?.path}` || " ",
+        image1: mainImagePaths || " ",
         catagory: userData.catagory,
+        token: ""
       };
+
       const response = await fetch(
-        
-        BackEndAPI+"/admin/add-product",
+        `${BackEndAPI}/products/add`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            // authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(derivedData),
         }
       );
 
       if (response.ok) {
-        alert("Added successfully");
+        alert("캠페인이 정상적으로 등록되었습니다 관리자가 확인 진행중입니다");
+        navigate("/");
       } else {
-        alert("Failed to add campaign. Please check the data.");
+        alert("캠페인 등록에 실패하였습니다 다시 시도해주세요");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -243,7 +321,7 @@ const Campaigns = () => {
   const [modalState, setModalState] = useState(false);
   const [test, settest] = useState(true);
 
-  const [activeVisit, setActiveVisit] = useState(false);
+  const [activeVisit, setActiveVisit] = useState(true);
   const [isCompaign, setIsCompaign] = useState(false);
   const [activeChanel, setActiveChanel] = useState([]);
   const [activeWeek, setActiveWeek] = useState([]);
@@ -252,14 +330,19 @@ const Campaigns = () => {
     // console.log(userData);
   }, [userData]);
 
+  const options = allMerchants?.merchants?.map((merchant) => ({
+    value: merchant,
+    label: `${merchant.businessName} - ${merchant.name}`
+  }));
+
   return (
     <>
       <div className="container mt-5 basic-campian-section 2xl:px-12 lg:px-5">
         <div className=" 2xl:px-12">
-          <div className="basic-setting 2xl:px-12 lg:px-0">
-            <h2>Campagin</h2>
-            <button className="bring-prev">Bring prev campaign</button>
-            <button className="reset">reset</button>
+          <div className="basic-setting 2xl:px-14 lg:px-2">
+            <h2>캠페인 설정</h2>
+
+            <button className="reset">초기화</button>
           </div>
           <div className="basic-setting-main-page">
             <div className="basic-setting-one flex items-center gap-3">
@@ -267,7 +350,7 @@ const Campaigns = () => {
                 <span> 1</span>
               </div>
               <div className="basic-setting-headin">
-                <h1>Basic settings</h1>
+                <h1>기본 설정</h1>
               </div>
               <div
                 className="last-basic flex items-center gap-2 justify-center"
@@ -285,11 +368,34 @@ const Campaigns = () => {
 
             <div className="form-data ">
               <div className="">
-                <label>Campaign Name(30letter)</label>
+                
+
+                <label className="mr-8">등록할 사용자</label>
+                <Select
+            className="mb-4"
+            options={options}
+            onChange={(selected) => {
+              setSelectedMerchant(selected.value);
+              console.log("selected", selected.value);
+            }}
+            placeholder="검색하세요..."
+            isSearchable={true}
+            styles={{
+              control: (baseStyles) => ({
+                ...baseStyles,
+                height: '50px',
+                borderColor: '#e5e7eb',
+                              borderRadius: '5px'
+                            })
+                          }}
+                />
+
+
+                <label>상품명</label>
                 <input
                   className="input-campaign-name w-full mt-4 h-[50px] px-4 rounded-[5px]"
                   type="text"
-                  placeholder="campaign name"
+                  placeholder="캠페인 이름 설정"
                   value={userData.campaignName}
                   onChange={(e) =>
                     setUserData({ ...userData, campaignName: e.target.value })
@@ -299,13 +405,15 @@ const Campaigns = () => {
             </div>
             <div className="form-data ">
               <div className="form-input-group">
-                <label>Service</label>
-                <textarea name="Info" id="" rows={10}></textarea>
+                <label>서비스명</label>
+                <textarea name="Info" id="" rows={10} value={userData.service} onChange={(e) =>
+                  setUserData({ ...userData, service: e.target.value })
+                }></textarea>
               </div>
             </div>
             <div className="form-data">
               <div className="form-input-group">
-                <label>Category</label>
+                <label>카테고리 설정</label>
                 <select
                   value={userData.category}
                   onChange={(e) =>
@@ -313,8 +421,8 @@ const Campaigns = () => {
                   }
                   className="w-full mt-4 h-[50px] px-4 rounded-[5px]"
                 >
-                  {tabs.map((category) => (
-                    <option value={category}>{category}</option>
+                  {tabs.map((category,index) => (
+                    <option value={category} key={`${category}-${index}`}>{category}</option>
                   ))}
                 </select>
               </div>
@@ -323,9 +431,9 @@ const Campaigns = () => {
 
             <div className="chanel-social">
               <h3>가능한 요일</h3>
-              <div className="flex justify-between mt-4 gap-1">
+              <div className="flex justify-between mt-4">
                 <div
-                  className={`${activeWeek.includes("mon") ? "youtube" : "insta"
+                  className={`${activeWeek.includes("mon") ? "weekend-active" : "weekend"
                     }`}
                   onClick={() => {
                     checkWeek("mon");
@@ -335,7 +443,7 @@ const Campaigns = () => {
                 </div>
 
                 <div
-                  className={`${activeWeek.includes("tue") ? "youtube" : "insta"
+                  className={`${activeWeek.includes("tue") ? "weekend-active" : "weekend"
                     }`}
                   onClick={() => {
                     checkWeek("tue");
@@ -345,7 +453,7 @@ const Campaigns = () => {
                 </div>
 
                 <div
-                  className={`${activeWeek.includes("wen") ? "youtube" : "insta"
+                  className={`${activeWeek.includes("wen") ? "weekend-active" : "weekend"
                     }`}
                   onClick={() => {
                     checkWeek("wen");
@@ -355,7 +463,7 @@ const Campaigns = () => {
                 </div>
 
                 <div
-                  className={`${activeWeek.includes("thur") ? "youtube" : "insta"
+                  className={`${activeWeek.includes("thur") ? "weekend-active" : "weekend"
                     }`}
                   onClick={() => {
                     checkWeek("thur");
@@ -365,7 +473,7 @@ const Campaigns = () => {
                 </div>
 
                 <div
-                  className={`${activeWeek.includes("fri") ? "youtube" : "insta"
+                  className={`${activeWeek.includes("fri") ? "weekend-active" : "weekend"
                     }`}
                   onClick={() => {
                     checkWeek("fri");
@@ -375,7 +483,7 @@ const Campaigns = () => {
                 </div>
 
                 <div
-                  className={`${activeWeek.includes("sat") ? "youtube" : "insta"
+                  className={`${activeWeek.includes("sat") ? "weekend-active" : "weekend"
                     }`}
                   onClick={() => {
                     checkWeek("sat");
@@ -385,7 +493,7 @@ const Campaigns = () => {
                 </div>
 
                 <div
-                  className={`${activeWeek.includes("sun") ? "youtube" : "insta"
+                  className={`${activeWeek.includes("sun") ? "weekend-active" : "weekend"
                     }`}
                   onClick={() => {
                     checkWeek("sun");
@@ -399,19 +507,20 @@ const Campaigns = () => {
             {/* Time */}
             <div className="form-data flex">
               <div className="w-1/2 pr-2">
-                <label>Start Time</label>
+                <label>가능 시간</label>
                 <input
                   type="time"
                   value={userData.startTime}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setUserData({ ...userData, startTime: e.target.value })
-                  }
+                    console.log(e.target.value)
+                  }}
                   className="w-full mt-4 h-[50px] px-4 rounded-[5px]"
                 />
               </div>
 
               <div className="w-1/2 pl-2">
-                <label>End Time</label>
+                <label>~ 까지</label>
                 <input
                   type="time"
                   value={userData.endTime}
@@ -427,7 +536,7 @@ const Campaigns = () => {
             <div className="form-data">
               <div className="flex justify-between">
                 <div className="form-input-group mt-12">
-                  <label>How many members</label>
+                  <label>신청 가능 인원수</label>
                   <div className="member-input">
                     <span
                       className="plus-minus-btn"
@@ -471,7 +580,7 @@ const Campaigns = () => {
                 </div>
 
                 <div className="form-input-group mt-12">
-                  <label>(Optional) Points to give out</label>
+                  <label>(현재 불가능) 나눠줄 포인트 </label>
                   <div
                     className="zero-input"
                     style={{
@@ -484,6 +593,7 @@ const Campaigns = () => {
                     </strong>
                     <input
                       type="number"
+                      disabled={true}
                       className="zero-input-number"
                       value={userData.points}
                       onChange={(e) =>
@@ -543,27 +653,27 @@ const Campaigns = () => {
 
             <div className="flex justify-between">
               <div
-                className={` ship ${activeVisit ? " border-green-500 border-2" : "ship"}`}
+                className={` ${activeVisit ? "visti" : "ship"}`}
                 onClick={() => {
                   setActiveVisit(true);
                   console.log(activeVisit);
                   setUserData({ ...userData, campaignType: "visit" });
                 }}
               >
-                <h4>Visit</h4>
-                <p>Visit and reivew</p>
+                <h4>방문</h4>
+                <p>방문 후 리뷰</p>
               </div>
 
               <div
-                 className={` ship ${activeVisit ? "ship":" border-green-500 border-2" }`}
-                onClick={() => {
-                  setActiveVisit(false);
-                  console.log(activeVisit);
-                  setUserData({ ...userData, campaignType: "ship" });
-                }}
+                className={` ${activeVisit ? "ship" : "visti"}`}
+              // onClick={() => {
+              //   setActiveVisit(false);
+              //   console.log(activeVisit);
+              //   setUserData({ ...userData, campaignType: "ship" });
+              // }}
               >
-                <h4>Ship</h4>
-                <p>Get shipping and review</p>
+                <h4>배송</h4>
+                <p>배송 후 리뷰</p>
               </div>
             </div>
 
@@ -571,226 +681,139 @@ const Campaigns = () => {
             {/* 나머지 주소 입력 */}
 
             {/* Drop */}
-            <div
-              className="drop"
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
+
+            <ImageUploader
+              title="썸네일 이미지를 넣어주세요 (최대 3개)"
+              onClick={() => { handleImageClick(thumbnailInputRef) }}
+              files={thumbnailFiles}
+              inputRef={thumbnailInputRef}
+              onFileChange={(event) => handleMainFileChange(event, setThumbnailFiles, thumbnailFiles, setThumbnailPath, ThumbnailMaxFiles)}
+              multiple={true}
+              maxFiles={ThumbnailMaxFiles}
             >
-              <div className="Main-image">
-                <p>Thumbnail image </p>
-              </div>
-              <div className="drag-drop">
-                <div className="drag-drop-heading">
-                  <h2>Drag to upload</h2>
-                  <p>600x520px, 10mb 이하, jpg/png 권장</p>
-                </div>
-                <div
-                  className="upload"
-                  onClick={handleImageClick}
-                  style={{ cursor: "pointer" }}
-                >
-                  <img src={Plus} alt="Upload" />
-                </div>
-                <input
-                  type="file"
-                  multiple
-                  ref={fileInputRef}
-                  style={{ display: "none" }}
-                  onChange={handleFileChange}
-                />
-              </div>
-              <div
-                className="file-list"
-                style={{ marginTop: "20px", display: "flex", flexWrap: "wrap" }}
-              >
-                {files.map((file, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      background: "#f0f0f0",
-                      padding: "5px 10px",
-                      margin: "5px",
-                      borderRadius: "5px",
-                      position: "relative",
-                    }}
-                  >
-                    <span style={{ marginRight: "10px" }}>{file.name}</span>
-                    <button
-                      onClick={() => handleRemoveFile(index)}
-                      style={{
-                        background: "transparent",
-                        border: "none",
-                        color: "#ff6347",
-                        fontSize: "16px",
-                        cursor: "pointer",
-                        position: "absolute",
-                        top: "2px",
-                        right: "2px",
-                      }}
-                    >
-                      ✖
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div
-              className="drop"
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
+
+            </ImageUploader>
+
+            <ImageUploader
+              title="상세 이미지를 넣어주세요 (최대 5개)"
+              onClick={() => { handleImageClick(mainInputRef) }}
+              files={mainFiles}
+              inputRef={mainInputRef}
+              onFileChange={(event) => handleMainFileChange(event, setMainFiles, mainFiles, setMainImagePaths, MainMaxFiles)}
+              multiple={true}
+              maxFiles={MainMaxFiles}
             >
-              <div className="Main-image">
-                <p>Main image (Max 5)</p>
-              </div>
-              <div className="drag-drop">
-                <div className="drag-drop-heading">
-                  <h2>Drag to upload</h2>
-                  <p>600x520px, 10mb 이하, jpg/png 권장</p>
-                </div>
-                <div
-                  className="upload"
-                  onClick={handleImageClick}
-                  style={{ cursor: "pointer" }}
-                >
-                  <img src={Plus} alt="Upload" />
-                </div>
-                <input
-                  type="file"
-                  multiple
-                  ref={fileInputRef}
-                  style={{ display: "none" }}
-                  onChange={handleFileChange}
-                />
-              </div>
-              <div
-                className="file-list"
-                style={{ marginTop: "20px", display: "flex", flexWrap: "wrap" }}
-              >
-                {files.map((file, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      background: "#f0f0f0",
-                      padding: "5px 10px",
-                      margin: "5px",
-                      borderRadius: "5px",
-                      position: "relative",
-                    }}
-                  >
-                    <span style={{ marginRight: "10px" }}>{file.name}</span>
-                    <button
-                      onClick={() => handleRemoveFile(index)}
-                      style={{
-                        background: "transparent",
-                        border: "none",
-                        color: "#ff6347",
-                        fontSize: "16px",
-                        cursor: "pointer",
-                        position: "absolute",
-                        top: "2px",
-                        right: "2px",
-                      }}
-                    >
-                      ✖
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+
+            </ImageUploader>
+
+
 
             {/* text area  */}
             <div className="form-data ">
               <div className="form-input-group">
-                <label>Info</label>
-                <textarea
-                  value={fill.field1}
-                  name="Info"
-                  id=""
-                  className="w-full mt-4 h-[50px] px-4 rounded-[5px] border"
-                  rows={10}
+                <label>제공 내역</label>
+                <ReactQuill
+                  modules={modules}
+                  style={{ resize: "vertical", overflowY: "auto", height: "200px" }}
+                  value={fill?.field1}
                   onChange={(e) => {
-                    setFill({ ...fill, field1: e.target.value });
-                    setUserData({ ...userData, Info: e.target.value });
-                  }}
-                ></textarea>
+                    setFill(prevFill => ({
+                      ...prevFill,  // Keep all existing fields
+                      field1: e     // Update only field1
+                    }));
+                    setUserData(prevData => ({
+                      ...prevData,
+                      field1: e
+                    }));
+                  }}d
+                  
+                >
+                </ReactQuill>
+
               </div>
             </div>
 
             <div className="form-data ">
               <div className="form-input-group">
-                <label>How to Register</label>
-                <textarea
-                  name="How to Register"
-                  id=""
-                  rows={10}
-                  className="w-full mt-4 h-[50px] px-4 rounded-[5px] border"
-                  value={fill.field2}
+                <label>방문 및 예약 안내</label>
+                <ReactQuill
+                  modules={modules}
+                  style={{ resize: "vertical", overflowY: "auto", height: "200px" }}
+                  value={fill?.field2}
                   onChange={(e) => {
-                    setFill({ ...fill, field2: e.target.value });
-                    setUserData({ ...userData, howtoregister: e.target.value });
+                    setFill(prevFill => ({
+                      ...prevFill,
+                      field2: e
+                    }));
+                    setUserData(prevData => ({
+                      ...prevData, field2: e }));
                   }}
-                ></textarea>
+                  
+                ></ReactQuill>
               </div>
             </div>
 
             <div className="form-data ">
               <div className="form-input-group">
-                <label>Mission</label>
-                <textarea
-                  name="Mission"
-                  value={fill.field3}
-                  id=""
-                  className="w-full mt-4 h-[50px] px-4 rounded-[5px] border"
-                  rows={10}
+                <label>캠페인 미션</label>
+                <ReactQuill
+                  modules={modules}
+                  style={{ resize: "vertical", overflowY: "auto", height: "200px" }}
+                  value={fill?.field3}
                   onChange={(e) => {
-                    setFill({ ...fill, field3: e.target.value });
-                    setUserData({ ...userData, mission: e.target.value });
+                    setFill(prevFill => ({
+                      ...prevFill,
+                      field3: e
+                    }));
+                    setUserData(prevData => ({
+                      ...prevData, field3: e }));
                   }}
-                ></textarea>
+                ></ReactQuill>
               </div>
             </div>
 
             <div className="form-data ">
               <div className="form-input-group">
-                <label>Keywords</label>
-                <textarea
-                  name="Keywords"
-                  value={fill.field4}
-                  id=""
-                  className="w-full mt-4 h-[50px] px-4 rounded-[5px] border"
-                  rows={10}
+                <label>키워드</label>
+                
+                <ReactQuill
+                  modules={modules}
+                  style={{ resize: "vertical", overflowY: "auto", height: "200px" }}
+                  value={fill?.field4}
                   onChange={(e) => {
-                    setFill({ ...fill, field4: e.target.value });
-                    setUserData({ ...userData, keywords: e.target.value });
+                    setFill(prevFill => ({
+                      ...prevFill,
+                      field4: e
+                    }));
+                    setUserData(prevData => ({
+                      ...prevData, field4: e }));
                   }}
-                ></textarea>
+                ></ReactQuill>
               </div>
             </div>
 
             <div className="form-data ">
               <div className="form-input-group">
-                <label>Aditional Info</label>
-                <textarea
-                  name="Aditional Info"
-                  value={fill.field5}
-                  id=""
-                  className="w-full mt-4 h-[50px] px-4 rounded-[5px] border"
-                  rows={10}
+                <label>추가 안내사항</label>
+                <ReactQuill
+                  modules={modules}
+                  style={{ resize: "vertical", overflowY: "auto", height: "200px" }}
+                  value={fill?.field5}
                   onChange={(e) => {
-                    setFill({ ...fill, field5: e.target.value });
-                    setUserData({ ...userData, aditionalinfo: e.target.value });
+                    setFill(prevFill => ({
+                      ...prevFill,
+                      field5: e
+                    }));
+                    setUserData(prevData => ({
+                      ...prevData, field5: e }));
                   }}
-                ></textarea>
+                ></ReactQuill>
               </div>
             </div>
             {/* Adress to visit */}
             <div className="Adress_to_visit">
               <div className="address_to_visit_para">
-                <p>Adress to visit</p>
+                <p>업소 위치</p>
               </div>
               <div
                 className="address-one mt-3 px-5"
@@ -860,7 +883,7 @@ const Campaigns = () => {
 
             {/* Chanel  youtube active insta inactive*/}
             <div className="chanel-social">
-              <h3>Chanel</h3>
+              <h3>흥보 채널</h3>
               <div className="flex justify-between mt-4">
                 <div
                   className={`${activeChanel.includes("youtube") ? "youtube" : "insta"
@@ -903,10 +926,10 @@ const Campaigns = () => {
                 </div>
 
                 <div
-                  className={`${activeChanel.includes("etc") ? "youtube" : "insta"
+                  className={`${activeChanel.includes("tiktok") ? "youtube" : "insta"
                     }`}
                   onClick={() => {
-                    checkChanel("Tiktok");
+                    checkChanel("tiktok");
                   }}
                 >
                   Tiktok
@@ -915,6 +938,8 @@ const Campaigns = () => {
             </div>
 
             {/* End */}
+          </div>
+        </div>
         <div
           className="2xl:px-12  mt-10 mb-12"
           style={{ paddingBottom: "90px" }}
@@ -930,12 +955,10 @@ const Campaigns = () => {
               <p>캠페인 등록하기</p>
             </div>
           </div>
-          </div>
-        </div>
         </div>
       </div>
     </>
   );
 };
 
-export default Campaigns
+export default Campaigns;

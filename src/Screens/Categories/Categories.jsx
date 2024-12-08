@@ -42,6 +42,14 @@ const Categories = () => {
     ]
   };
 
+  const fieldNames = {
+    1: "제공 내역",
+    2: "방문 및 예약안내",
+    3: "캠페인 미션",
+    4: "키워드",
+    5: "추가 안내사항",
+  }
+
   useEffect(() => {
     const getData = async () => {
       const res = await axios.get(`${BackEndAPI}/tabs/getTab`);
@@ -134,6 +142,7 @@ const Categories = () => {
       const res = await axios.post(`${BackEndAPI}/heading/fields/update`, data);
       if (res.status === 200) {
         setref(!ref);
+        alert("변경이 완료됬습니다");
       }
     } catch (err) {
       alert("Failed to update titles, Empty fields are not not allowed");
@@ -397,6 +406,7 @@ const Categories = () => {
           {/* Right container for Add Title */}
           <div className="right-container">
             <h2 className="section-heading">안내 문구 설정</h2>
+            {isEditingTitle ?  (
             <InputGroup className="mb-3">
               {/* <FormControl
                 as="textarea"
@@ -412,36 +422,47 @@ const Categories = () => {
                 style={{ resize: "vertical", overflowY: "auto", height: 300 }}
               />
 
+
+
               <Button
                 style={{ height: 30, marginTop: 10 , width: "100%"  , display: "flex", justifyContent: "center", alignItems: "center"}}
                 onClick={handleAddTitle}
                 className="add-title-button"
               >
-                {isEditingTitle ? "Update" : "Add"}
+                변경
               </Button>
+             
+
+
             </InputGroup>
+            ) : (<></>)}
 
             <div className="title-list">
               {titleList.map((item, index) => (
                 <div key={index} className="title-item">
                   <div className="field-container">
+                    <div style={{display: "flex",width: "100%", justifyContent: "space-between", alignItems: "end"}}>
+                    <div style={{fontSize: 16, fontWeight: "bold" , marginBottom: 10}}>{fieldNames[index+1]}</div>
+                    <Button
+                        onClick={() => handleEditTitle(index)}
+                        className="edit-title-button"
+                      >
+                        수정
+                      </Button>
+                      </div>
                     <div
+                    
                       dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item) }}
                       className="rich-text-content"
                     />
                     <div className="title-actions">
-                      <Button
-                        onClick={() => handleEditTitle(index)}
-                        className="edit-title-button"
-                      >
-                        Edit
-                      </Button>
-                      <Button
+                      
+                      {/* <Button
                         onClick={() => handleDeleteTitle(index)}
                         className="delete-title-button"
                       >
                         Delete
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 </div>
