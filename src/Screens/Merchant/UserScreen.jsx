@@ -77,29 +77,29 @@ const UserScreen = () => {
   );
 
   const handleMessageSend = async () => {
-    if(confirm("메세지를 전송하시겠습니까?")) {
-    const response = await axios.post(`${BackEndAPI}/admin/SendMessage`, {
-      email: clickMessageSend,
-      message: message
-    })
+    if (confirm("메세지를 전송하시겠습니까?")) {
+      const response = await axios.post(`${BackEndAPI}/admin/SendMessage`, {
+        email: clickMessageSend,
+        message: message
+      })
 
-    if (response.status === 200) {
-      alert("메세지 전송 완료")
-      setClickMessageSend(null)
-      setMessage("")
+      if (response.status === 200) {
+        alert("메세지 전송 완료")
+        setClickMessageSend(null)
+        setMessage("")
+      }
     }
-  }
   }
 
   const [selectedTab, setSelectedTab] = useState("users");
 
   return (
     <div className="all-users-container">
-      <div className="select-tab" style={{display: "flex", justifyContent: "start", gap: "10px", marginBottom: "20px"}}>
-        <div 
+      <div className="select-tab" style={{ display: "flex", justifyContent: "start", gap: "10px", marginBottom: "20px" }}>
+        <div
           onClick={() => setSelectedTab("users")}
           style={{
-            cursor: "pointer", 
+            cursor: "pointer",
             fontWeight: "bold",
             borderBottom: selectedTab === "users" ? "2px solid black" : "none",
             color: selectedTab === "users" ? "black" : "gray"
@@ -107,10 +107,10 @@ const UserScreen = () => {
         >
           사용자
         </div>
-        <div 
+        <div
           onClick={() => setSelectedTab("merchants")}
           style={{
-            cursor: "pointer", 
+            cursor: "pointer",
             fontWeight: "bold",
             borderBottom: selectedTab === "merchants" ? "2px solid black" : "none",
             color: selectedTab === "merchants" ? "black" : "gray"
@@ -119,7 +119,7 @@ const UserScreen = () => {
           사장님
         </div>
       </div>
-       {selectedTab === "users" ? (
+      {selectedTab === "users" ? (
         // Users Section
         <div className="users-section">
           <h2 className="text-center">사용자</h2>
@@ -138,14 +138,31 @@ const UserScreen = () => {
               <tbody>
                 {users.map((user, index) => (
                   <tr key={index}>
-                    <td><div style={{cursor: "pointer", color: "white" , backgroundColor: "blue", padding: "5px", borderRadius: "5px"}}
-                    onClick={() => setClickMessageSend(user.email)}
+                    <td><div style={{ cursor: "pointer", color: "white", backgroundColor: "blue", padding: "5px", borderRadius: "5px" }}
+                      onClick={() => setClickMessageSend(user.email)}
                     >메세지 전송</div>{user.name ? user.name : "No Text available"}</td>
                     <td>{user.phoneNumber ? user.phoneNumber : "No Number available"}</td>
                     <td>{user.email ? user.email : "No Number available"}</td>
                     <td>{user.birthDate ? user.birthDate : "No Number available"}</td>
                     <td>{user.joinedDate ? changeDate(user.joinedDate) : "No Number available"}</td>
-                    <td>{user.influenceType ? user.influenceType : "No Number available"}</td>
+                    <td>{user.influenceType ? (
+                      <div>
+                        {Object.entries(user.influenceType).map(([key, value]) => {
+                          if (Array.isArray(value)) {
+                            return (
+                              <div key={key} style={{color: "blue" , border: "1px solid blue", padding: "5px", borderRadius: "5px" , marginBottom: "5px"}}>
+                                <a href={`https://${value[1]}`} target="_blank" rel="noopener noreferrer">
+                                {value[0]}
+                                </a>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })}
+                      </div>
+                    ) : (
+                      <div>No Influence Type</div>
+                    )}</td>
                   </tr>
                 ))}
               </tbody>
@@ -197,9 +214,9 @@ const UserScreen = () => {
                 {merchants.map((merchant, index) => (
                   <tr key={index}>
                     <td>
-                    <div style={{cursor: "pointer", color: "white" , backgroundColor: "blue", padding: "5px", borderRadius: "5px"}}
-                    onClick={() => setClickMessageSend(merchant.email)}
-                    >메세지 전송</div>
+                      <div style={{ cursor: "pointer", color: "white", backgroundColor: "blue", padding: "5px", borderRadius: "5px" }}
+                        onClick={() => setClickMessageSend(merchant.email)}
+                      >메세지 전송</div>
                       {merchant.name ? merchant.name : "No name available"}</td>
                     <td>{merchant.email ? merchant.email : "No email available"}</td>
                     <td>{merchant.PhoneNumber ? merchant.PhoneNumber : "No number available"}</td>
@@ -239,11 +256,11 @@ const UserScreen = () => {
         </div>
       )}
       <div>{clickMessageSend ? (
-        <div style={{display: "flex", flexDirection: "column", gap: "10px"}}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           <h3>{`${clickMessageSend} 에게 메세지 전송`}</h3>
           <input type="text" placeholder="메세지 입력" onChange={(e) => setMessage(e.target.value)} />
-          <button style={{cursor: "pointer", color: "white" , backgroundColor: "blue", padding: "5px", borderRadius: "5px"}}
-          onClick={() => handleMessageSend()}
+          <button style={{ cursor: "pointer", color: "white", backgroundColor: "blue", padding: "5px", borderRadius: "5px" }}
+            onClick={() => handleMessageSend()}
           >전송</button>
         </div>
       ) : null}</div>
