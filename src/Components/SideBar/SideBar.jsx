@@ -38,23 +38,23 @@ function SideBar() {
         <Offcanvas.Body>
           <Nav className="flex-column pe-3">
             <Nav.Link as={Link} to="/home" className="text-white nav-hover">
-              Home
+              메인 
             </Nav.Link>
             <Nav.Link as={Link} to="/users" className="text-white nav-hover">
-              Users
+              사용자
             </Nav.Link>
             <Nav.Link as={Link} to="/products" className="text-white nav-hover">
-              Products
+              상품
             </Nav.Link>
             <Nav.Link as={Link} to="/campaigns" className="text-white nav-hover">
-              Add Products
+              상품 추가
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/Categories"
               className="text-white nav-hover"
             >
-              Categories
+              카테고리 / 배너 추가
             </Nav.Link>
             <Nav.Link
               as={Link}

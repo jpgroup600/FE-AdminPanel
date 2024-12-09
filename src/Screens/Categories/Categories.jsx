@@ -388,13 +388,13 @@ const Categories = () => {
                         onClick={() => handleEditTab(index)}
                         className="edit-tab-button"
                       >
-                        Edit
+                        수정
                       </Button>
                       <Button
                         onClick={() => handleDeleteTab(index)}
                         className="delete-tab-button"
                       >
-                        Delete
+                        삭제
                       </Button>
                     </div>
                   </div>
